@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public List<User> getAllUsers() {
-        String jpql = "SELECT User FROM User";
+        String jpql = "SELECT User FROM User u";
         TypedQuery<User> userTypedQuery = entityManager.createQuery(jpql, User.class);
         return userTypedQuery.getResultList();
     }
