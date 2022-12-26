@@ -1,5 +1,6 @@
 package web.model;
 
+
 import jakarta.persistence.*;
 
 @Entity
