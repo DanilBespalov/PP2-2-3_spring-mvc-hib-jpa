@@ -10,7 +10,7 @@ import web.model.User;
 import java.util.List;
 
 @Repository
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -18,12 +18,13 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public List<User> getAllUsers() {
-        String jpql = "SELECT User FROM User u";
+        String jpql = "from User";
         TypedQuery<User> userTypedQuery = entityManager.createQuery(jpql, User.class);
         return userTypedQuery.getResultList();
     }
 
     @Override
+    @Transactional
     public User showUserByID(int id) {
         return entityManager.find(User.class, id);
     }
