@@ -6,19 +6,24 @@
     <title>All Users</title>
   <br>
   <br>
-  <table>
+  <table class="table">
+    <thead>
     <tr>
-      <th>Name</th>
-      <th>Surname</th>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Surname</th>
     </tr>
+    </thead>
   </table>
 </head>
 <body>
+<div th:each="user : ${allUsers}">
+    <td th:text="${user.getId()}"></td>
+    <td th:text="${user.getName()}"></td>
+    <td th:text="${user.getSurname()}"></td>
 
-<div>
-  <th:block th:each="user : ${allUsers}">
-    <td th:text="${user}"></td>
-  </th:block>
+  <a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>
+  <a th:href="@{/users/{id}/(id=${user.getId()})}"></a>
 </div>
 <br>
 <hr>
@@ -26,3 +31,4 @@
 
 </body>
 </html>
+
