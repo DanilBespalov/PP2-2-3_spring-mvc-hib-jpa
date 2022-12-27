@@ -14,7 +14,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-
+import java.util.Properties;
 
 
 @Configuration
@@ -43,12 +43,12 @@ public class AppConfig {
    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
       LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
       entityManager.setDataSource(getDataSource());
-      entityManager.setPackagesToScan("src/main/java/web/model");
+      entityManager.setPackagesToScan("src.main.java.web");
       entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-//      Properties props=new Properties();
-//      props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-//      props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-//      entityManager.setJpaProperties(props);
+      Properties props=new Properties();
+      props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+      props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+      entityManager.setJpaProperties(props);
       return entityManager;
    }
    @Bean()
