@@ -43,14 +43,19 @@ public class AppConfig {
    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
       LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
       entityManager.setDataSource(getDataSource());
-      entityManager.setPackagesToScan("src.main.java.web");
+      entityManager.setPackagesToScan("src.main.java.web.model");
       entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+      hibernateSettings(entityManager);
+      return entityManager;
+   }
+
+   private void hibernateSettings(LocalContainerEntityManagerFactoryBean entityManager) {
       Properties props=new Properties();
       props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
       props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
       entityManager.setJpaProperties(props);
-      return entityManager;
    }
+
    @Bean()
    public JpaTransactionManager transactionManager() {
       JpaTransactionManager transactionManager = new JpaTransactionManager();
