@@ -15,7 +15,6 @@
     </tr>
     </thead>
 
-
 <div th:each="user : ${allUsers}">
   <tr>
     <td th:text="${user.getId()}"></td>
@@ -24,7 +23,6 @@
     <td> <a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>
     </td>
   </tr>
-
 
 </div>
   </table>
