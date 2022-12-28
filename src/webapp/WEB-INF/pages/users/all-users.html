@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>All Users</title>
-  <br>
-  <br>
+</head>
+<body>
   <table class="table">
     <thead>
     <tr>
@@ -14,17 +14,20 @@
       <th scope="col">Surname</th>
     </tr>
     </thead>
-  </table>
-</head>
-<body>
+
+
 <div th:each="user : ${allUsers}">
+  <tr>
     <td th:text="${user.getId()}"></td>
     <td th:text="${user.getName()}"></td>
     <td th:text="${user.getSurname()}"></td>
+    <td> <a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>
+    </td>
+  </tr>
 
-  <a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>
-  <a th:href="@{/users/{id}/(id=${user.getId()})}"></a>
+
 </div>
+  </table>
 <br>
 <hr>
 <a href="/users/new">Create new user</a>
