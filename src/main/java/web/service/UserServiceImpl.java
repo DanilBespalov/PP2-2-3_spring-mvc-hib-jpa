@@ -39,19 +39,16 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User update(User user, int id) {
-        User userToUpdate = showUserByID(id);
-        userToUpdate.setId(user.getId());
-        userToUpdate.setName(user.getName());
-        userToUpdate.setSurname(user.getSurname());
-        return userDAO.update(userToUpdate, id);
+
+        return userDAO.update(user, id);
 
     }
 
     @Override
     @Transactional
     public void delete(int id) {
-        User userToDelete = showUserByID(id);
-        userDAO.delete(userToDelete.getId());
+
+        userDAO.delete(id);
     }
 
 }
