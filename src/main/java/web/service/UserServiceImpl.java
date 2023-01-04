@@ -1,37 +1,39 @@
 package web.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import web.dao.UserDAO;
 import web.model.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
 public class UserServiceImpl implements UserService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private UserDAO userDAO;
+
+    @Autowired
+    public UserServiceImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     @Transactional
     public List<User> getAllUsers() {
-        TypedQuery<User> userTypedQuery = entityManager.createQuery("from User", User.class);
-        return userTypedQuery.getResultList();
+        return userDAO.getAllUsers();
     }
 
     @Override
     @Transactional
     public User showUserByID(int id) {
-        return entityManager.find(User.class, id);
+        return userDAO.showUserByID(id);
     }
 
     @Override
     @Transactional
     public void add(User user) {
-        entityManager.persist(user);
+        userDAO.add(user);
     }
 
     @Override
@@ -41,7 +43,7 @@ public class UserServiceImpl implements UserService {
         userToUpdate.setId(user.getId());
         userToUpdate.setName(user.getName());
         userToUpdate.setSurname(user.getSurname());
-        return entityManager.merge(userToUpdate);
+        return userDAO.update(userToUpdate, id);
 
     }
 
@@ -49,6 +51,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void delete(int id) {
         User userToDelete = showUserByID(id);
-        entityManager.remove(userToDelete);
+        userDAO.delete(userToDelete.getId());
     }
+
 }
